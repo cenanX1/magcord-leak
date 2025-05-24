@@ -1,0 +1,40 @@
+FILL EVERYTHING IN CONFIG.JSON
+DONT DELETE ANY FILE ELSE IT WILL NOT WORK 
+ENJOY LOL!
+
+
+@mag.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.CommandNotFound):
+        pass
+    elif isinstance(error, commands.MissingRequiredArgument):
+        missing_arg = error.param.name.split(":")[0] if ":" in error.param.name else error.param.name
+        await senderrors(ctx, "Missing Argument", f"You need to provide `{missing_arg}`.")
+    elif isinstance(error, commands.BadArgument):
+        with open('config.json', 'r') as config_file:
+            config = json.load(config_file)
+        prefix = config.get("prefix", "!")  # Default prefix if missing in config
+        command_usage = ctx.command.usage or f"{prefix}{ctx.command.name} {ctx.command.signature}"
+        command_usage = command_usage.replace("<", "TEMP").replace("[", "<").replace("TEMP", "[").replace(">", "TEMP").replace("]", ">").replace("TEMP", "]")
+        await senderrors(ctx, "Invalid Argument", f"Please check your input.\n**Correct usage:** `{command_usage}`")
+    elif isinstance(error, commands.MissingPermissions):
+        missing_perms = ", ".join(error.missing_permissions)  # Get list of missing perms
+        await senderrors(ctx, "Missing Permissions", f"You need `{missing_perms}` to use this command.")
+    elif isinstance(error, commands.BotMissingPermissions):
+        missing_perms = ", ".join(error.missing_permissions)
+        await senderrors(ctx, "Bot Missing Permissions", f"I need `{missing_perms}` to execute this command.")
+    elif isinstance(error, commands.NoPrivateMessage):
+        await senderrors(ctx, "Command Not Allowed", "You can't use this command in DMs. Please use it in a server.")
+    elif isinstance(error, commands.PrivateMessageOnly):
+        await senderrors(ctx, "Command Only in DMs", "You can only use this command in private messages.")
+    elif isinstance(error, commands.CheckFailure):
+        if isinstance(ctx.channel, discord.DMChannel):
+            await senderrors(ctx, "Server-Only Command", "This command can only be used in a server.")
+        else:
+            await senderrors(ctx, "Access Denied", "You cannot use this command in this context.")
+    elif isinstance(error, discord.errors.Forbidden):
+        await senderrors(ctx, "Message Blocked", "I can't send messages here. It may be due to permissions or a word filter.")
+    elif isinstance(error, discord.HTTPException) and "403" in str(error):
+        await senderrors(ctx, "Message Restricted", "I can't send this message here, possibly due to server settings or filters.")
+    else:
+        await senderrors(ctx, "Unexpected Error", f"`{error}`")

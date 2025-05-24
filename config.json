@@ -1,0 +1,16 @@
+{
+    "selfbot_name": "MagCord",
+    "token": "",
+    "license_key": "MAG-XXXX-XXXX-XXXX",
+    "tatum_api_key": "",
+    "time_zone": "Asia/Kolkata",
+    "vouch_server": "discord.gg/scammeralert",
+    "ping_scan": false,
+    "status_rotator_interval_in_seconds": 5,
+    "mode": 1,
+    "embed_colour": "#00ffee",
+    "prefix": "m!",
+    "IP": "localhost",
+    "PORT": 5000,
+    "SECRET_PIN": "21203"    
+}

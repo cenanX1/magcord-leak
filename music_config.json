@@ -1,0 +1,11 @@
+{
+    "token": "NTc3MjkzNzUxODMyMDE5MDAz.GtYGIC.YqCqY0QJzFp71FSSd9kuem-OP0I5MnKQD6r9as",
+    "lavalink_host": "lava-v4.ajieblogs.eu.org",
+    "lavalink_port": 443,
+    "lavalink_password": "https://dsc.gg/ajidevserver",
+    "lavalink_https": true,
+    "allowed_users": [
+        1088731835959357450
+    ],
+    "prefix": ","
+}
